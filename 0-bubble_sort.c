@@ -3,6 +3,7 @@
  * bubble_sort - sort array elements from min to max value
  * @array: array
  * @size: array size
+ * sadiq
  */
 void bubble_sort(int *array, size_t size)
 {
