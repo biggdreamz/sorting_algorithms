@@ -18,12 +18,9 @@ void bubble_sort(int *array, size_t size)
 		{
 			if (array[index] > array[index + 1])
 			{
-				// Swap elements
 				tmp = array[index];
 				array[index] = array[index + 1];
 				array[index + 1] = tmp;
-
-				// Print array after each swap
 				print_array(array, size);
 			}
 		}
