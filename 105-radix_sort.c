@@ -1,89 +1,92 @@
-#include "sort.h"
 #include <stdio.h>
-/**
-* getMax - A utility function to get maximum value in arr[]
-* @arr: array
-* @n: size of the array
-* Return: array
-*/
-int getMax(int *arr, int n)
-{
-	int i, max = arr[0];
+#include <stdlib.h>
+#include "sort.h"
 
-	for (i = 1; i < n; i++)
-		if (arr[i] > max)
-			max = arr[i];
-	return (max);
+/**
+ * get_max - Finds the maximum value in an array.
+ * @array: The array to check.
+ * @size: The size of the array.
+ *
+ * Return: The maximum value in the array.
+ */
+int get_max(int *array, size_t size)
+{
+    int max = array[0];
+    size_t i;
+
+    for (i = 1; i < size; i++)
+    {
+        if (array[i] > max)
+            max = array[i];
+    }
+    return (max);
 }
 
 /**
-* countSort - A function to do counting sort of arr[] according to
-* the digit represented by exp.
-* @arr: array
-* @n: size of the array
-* @exp: exp is 10^i
-* @output: array to save the temporary values
-*/
-void countSort(int *arr, size_t n, int exp, int *output)
+ * counting_sort - Performs counting sort based on a specific digit.
+ * @array: The array to sort.
+ * @size: The size of the array.
+ * @exp: The significant digit to sort by.
+ *
+ * Description: This function sorts the array according to the
+ * specified digit (unit, tens, etc.) and prints the array
+ * after each sorting step.
+ */
+void counting_sort(int *array, size_t size, int exp)
 {
-	int i;
-	int count[10] = {0};
+	int *output = malloc(size * sizeof(int));
+	int count[10] = {0}; /* Initialize count array for base 10 */
+	size_t i;
 
 	/* Store count of occurrences in count[] */
-	for (i = 0; i < (int)n; i++)
-		count[(arr[i] / exp) % 10]++;
+	for (i = 0; i < size; i++)
+		count[(array[i] / exp) % 10]++;
 
-	/*
-	* Change count[i] so that count[i] now contains actual
-    * position of this digit in output[]
-	*/
+	/* Change count[i] to contain actual position of this digit */
 	for (i = 1; i < 10; i++)
 		count[i] += count[i - 1];
 
 	/* Build the output array */
-	for (i = n - 1; i >= 0; i--)
+	for (i = size - 1; (ssize_t)i >= 0; i--)
 	{
-		output[count[(arr[i] / exp) % 10] - 1] = arr[i];
-		count[(arr[i] / exp) % 10]--;
+		output[count[(array[i] / exp) % 10] - 1] = array[i];
+		count[(array[i] / exp) % 10]--;
 	}
 
-	/*
-	* Copy the output array to arr[], so that arr[] now
-    * contains sorted numbers according to current digit
-	*/
-	for (i = 0; i < (int)n; i++)
-		arr[i] = output[i];
-	/*print_array(arr, n);*/
+	/* Copy the output array to array[], so that array[] now
+		contains sorted numbers according to the current digit */
+	for (i = 0; i < size; i++)
+		array[i] = output[i];
+
+	/* Print the array after sorting by the current digit */
+	print_array(array, size);
+
+	free(output); /* Free allocated memory */
 }
 
 /**
-* radix_sort - The main function to that sorts arr[]
-* of size n using Radix Sort
-* @array: array
-* @size: size of the array
-*/
+ * radix_sort - Sorts an array of integers in ascending order using
+ *              the Radix sort algorithm.
+ * @array: The array to be sorted.
+ * @size: The size of the array.
+ *
+ * Description: This function implements the LSD (Least Significant
+ * Digit) Radix Sort algorithm and prints the array after each
+ * significant digit increase.
+ */
 void radix_sort(int *array, size_t size)
 {
-	/* Find the maximum number to know number of digits */
-	int exp, maximum = 0;
-	int *output = '\0'; /* output array should be n(size) */
+	int max, exp;
 
-	if (array == '\0' || size < 2)
+	if (array == NULL || size < 2)
 		return;
 
-	maximum = getMax(array, size);
-	output = malloc(size * sizeof(int));
-	if (output == '\0')
-		return;
-	/*
-	* Do counting sort for every digit. Note that instead
-    * of passing digit number, exp is passed. exp is 10^i
-    * where i is current digit number
-	*/
-	for (exp = 1; maximum / exp > 0; exp *= 10)
+	/* Get the maximum number to know the number of digits */
+	max = get_max(array, size);
+
+	/* Perform counting sort for every digit */
+	for (exp = 1; max / exp > 0; exp *= 10)
 	{
-		countSort(array, size, exp, output);
-		print_array(array, size);
+		counting_sort(array, size, exp);
 	}
-	free(output);
 }
