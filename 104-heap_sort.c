@@ -81,12 +81,13 @@ void build_max_heap(int *array, size_t size)
  */
 void heap_sort(int *array, size_t size)
 {
+	size_t end;
+	
 	if (array == NULL || size < 2)
 		return;
 
 	build_max_heap(array, size);
 
-	size_t end;
 	for (end = size - 1; end > 0; end--)
 	{
 		int temp = array[0];
