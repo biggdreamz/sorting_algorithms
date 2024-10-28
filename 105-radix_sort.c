@@ -24,6 +24,39 @@ int get_max(int *array, size_t size)
 }
 
 /**
+ * counting_sort - Performs counting sort based on a specific digit.
+ * @array: The array to sort.
+ * @size: The size of the array.
+ * @exp: The significant digit to sort by.
+ *
+ * Description: This function sorts the array according to the
+ * specified digit (unit, tens, etc.) and prints the array
+ * after each sorting step.
+ */
+void counting_sort(int *array, size_t size, int exp)
+{
+	int *output = malloc(size * sizeof(int));
+
+	int count[10] = {0}; /* Initialize count array for base 10 */
+
+	size_t i;
+
+	/* Store count of occurrences in count[] */
+	for (i = 0; i < size; i++)
+		count[(array[i] / exp) % 10]++;
+
+	/* Change count[i] to contain actual position of this digit */
+	for (i = 1; i < 10; i++)
+		count[i] += count[i - 1];
+
+	/* Build the output array */
+	for (i = size - 1; (ssize_t)i >= 0; i--)
+	{
+		output[count[(array[i] / exp) % 10] - 1] = array[i];
+		count[(array[i] / exp) % 10]--;
+	}
+
+/**
  * Copy the output array to array[], so that array[] now
  * contains sorted numbers according to the current digit
  */
