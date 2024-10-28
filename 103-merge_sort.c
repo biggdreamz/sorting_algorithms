@@ -3,23 +3,6 @@
 #include "sort.h"
 
 /**
- * print_subarray - Helper function to print part of an array
- * @array: Pointer to the array
- * @start: Start index of the subarray
- * @end: End index of the subarray
- */
-void print_subarray(const int *array, size_t start, size_t end)
-{
-	for (size_t i = start; i <= end; i++)
-	{
-		if (i > start)
-			printf(", ");
-		printf("%d", array[i]);
-	}
-	printf("\n");
-}
-
-/**
  * merge - Merges two sorted halves of the array
  * @array: Pointer to the array to be sorted
  * @temp: Pointer to a temporary array for merging
