@@ -3,25 +3,6 @@
 #include "sort.h"
 
 /**
- * print_array - Prints an array of integers
- * @array: Pointer to the array to be printed
- * @size: Size of the array
- *
- * Description: This function prints each element of an integer array
- * separated by commas.
- */
-void print_array(const int *array, size_t size)
-{
-	for (size_t i = 0; i < size; i++)
-	{
-		if (i > 0)
-			printf(", ");
-		printf("%d", array[i]);
-	}
-	printf("\n");
-}
-
-/**
  * sift_down - Sifts down the element at index in the heap
  * @array: Pointer to the array representing the heap
  * @size: Size of the array
