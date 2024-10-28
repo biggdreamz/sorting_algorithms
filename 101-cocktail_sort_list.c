@@ -60,7 +60,7 @@ void cocktail_sort_list(listint_t **list)
 			break;
 
 		swapped = 0;
-		
+
 		/* Backward pass */
 		while (current->prev)
 		{
@@ -69,9 +69,7 @@ void cocktail_sort_list(listint_t **list)
 				swap_nodes(list, current->prev, current);
 				print_list(*list);
 				swapped = 1;
-			}
-			else
-			{
+			} else {
 				current = current->prev;
 			}
 		}
