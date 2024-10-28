@@ -48,7 +48,7 @@ void sift_down(int *array, size_t size, size_t root, size_t end)
 	if (largest != root)
 	{
 		int temp = array[root];
-		
+
 		array[root] = array[largest];
 		array[largest] = temp;
 		print_array(array, size);
@@ -67,7 +67,7 @@ void sift_down(int *array, size_t size, size_t root, size_t end)
 void build_max_heap(int *array, size_t size)
 {
 	ssize_t i;
-	
+
 	for (i = (size / 2) - 1; i >= 0; i--)
 		sift_down(array, size, i, size - 1);
 }
