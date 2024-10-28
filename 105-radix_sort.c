@@ -38,7 +38,7 @@ void counting_sort(int *array, size_t size, int exp)
 	int *output = malloc(size * sizeof(int));
 
 	int count[10] = {0}; /* Initialize count array for base 10 */
-	
+
 	size_t i;
 
 	/* Store count of occurrences in count[] */
@@ -56,11 +56,11 @@ void counting_sort(int *array, size_t size, int exp)
 		count[(array[i] / exp) % 10]--;
 	}
 
-/** 
+/**
  * Copy the output array to array[], so that array[] now
- * contains sorted numbers according to the current digit 
+ * contains sorted numbers according to the current digit
  */
-	
+
 	for (i = 0; i < size; i++)
 		array[i] = output[i];
 
