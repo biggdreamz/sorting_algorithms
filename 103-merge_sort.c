@@ -78,6 +78,7 @@ void merge_sort(int *array, size_t size)
 
 	int *temp = malloc(size * sizeof(int));
 	if (temp == NULL)
+
 	{
 		perror("Failed to allocate memory");
 		return;
