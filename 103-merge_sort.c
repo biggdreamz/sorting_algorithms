@@ -19,12 +19,9 @@ void merge(int *array, int *temp, size_t left_start,
 	size_t left_end = right_start - 1;
 	size_t temp_index = left_start;
 	size_t size = right_end - left_start + 1;
-	size_t i = left_start, j = right_start, k;
-
-	printf("Merging...\n[left]: ");
-	print_subarray(array, left_start, left_end);
-	printf("[right]: ");
-	print_subarray(array, right_start, right_end);
+	size_t i = left_start;
+	size_t j = right_start;
+	size_t k;
 
 	while (i <= left_end && j <= right_end)
 	{
@@ -42,9 +39,6 @@ void merge(int *array, int *temp, size_t left_start,
 
 	for (k = 0; k < size; k++, right_end--)
 		array[right_end] = temp[right_end];
-
-	printf("[Done]: ");
-	print_subarray(array, left_start, left_start + size - 1);
 }
 
 /**
@@ -89,6 +83,7 @@ void merge_sort(int *array, size_t size)
 		return;
 
 	temp = malloc(size * sizeof(int));
+
 	if (temp == NULL)
 	{
 		perror("Failed to allocate memory");
