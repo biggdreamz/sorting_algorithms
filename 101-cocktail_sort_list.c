@@ -9,7 +9,7 @@
  */
 void swap_nodes(listint_t **list, listint_t *left, listint_t *right)
 {
-    if (left->prev)
+	if (left->prev)
 		left->prev->next = right;
 	else
 		*list = right;
@@ -60,7 +60,7 @@ void cocktail_sort_list(listint_t **list)
 			break;
 
 		swapped = 0;
-        
+		
 		/* Backward pass */
 		while (current->prev)
 		{
