@@ -11,15 +11,16 @@
  */
 int get_max(int *array, size_t size)
 {
-    int max = array[0];
-    size_t i;
+	int max = array[0];
 
-    for (i = 1; i < size; i++)
-    {
-        if (array[i] > max)
-            max = array[i];
-    }
-    return (max);
+	size_t i;
+
+	for (i = 1; i < size; i++)
+	{
+		if (array[i] > max)
+			max = array[i];
+	}
+	return (max);
 }
 
 /**
@@ -35,7 +36,9 @@ int get_max(int *array, size_t size)
 void counting_sort(int *array, size_t size, int exp)
 {
 	int *output = malloc(size * sizeof(int));
+
 	int count[10] = {0}; /* Initialize count array for base 10 */
+	
 	size_t i;
 
 	/* Store count of occurrences in count[] */
@@ -53,8 +56,11 @@ void counting_sort(int *array, size_t size, int exp)
 		count[(array[i] / exp) % 10]--;
 	}
 
-	/* Copy the output array to array[], so that array[] now
-		contains sorted numbers according to the current digit */
+/** 
+ * Copy the output array to array[], so that array[] now
+ * contains sorted numbers according to the current digit 
+ */
+	
 	for (i = 0; i < size; i++)
 		array[i] = output[i];
 
