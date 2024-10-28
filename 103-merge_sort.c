@@ -19,7 +19,9 @@ void merge(int *array, int *temp, size_t left_start,
 	size_t left_end = right_start - 1;
 	size_t temp_index = left_start;
 	size_t size = right_end - left_start + 1;
-	size_t i = left_start, j = right_start;
+	size_t i = left_start;
+	size_t j = right_start;
+	size_t k;
 
 	while (i <= left_end && j <= right_end)
 	{
@@ -35,7 +37,7 @@ void merge(int *array, int *temp, size_t left_start,
 	while (j <= right_end)
 		temp[temp_index++] = array[j++];
 
-	for (size_t k = 0; k < size; k++, right_end--)
+	for (k = 0; k < size; k++, right_end--)
 		array[right_end] = temp[right_end];
 }
 
@@ -51,10 +53,12 @@ void merge(int *array, int *temp, size_t left_start,
  */
 void merge_sort_recursive(int *array, int *temp, size_t left, size_t right)
 {
+	size_t middle;
+
 	if (left >= right)
 		return;
 
-	size_t middle = left + (right - left) / 2;
+	middle = left + (right - left) / 2;
 
 	merge_sort_recursive(array, temp, left, middle);
 	merge_sort_recursive(array, temp, middle + 1, right);
@@ -73,13 +77,14 @@ void merge_sort_recursive(int *array, int *temp, size_t left, size_t right)
  */
 void merge_sort(int *array, size_t size)
 {
+	int *temp;
+
 	if (array == NULL || size < 2)
 		return;
 
-	int *temp = malloc(size * sizeof(int));
-
+	temp = malloc(size * sizeof(int));
+	
 	if (temp == NULL)
-
 	{
 		perror("Failed to allocate memory");
 		return;
@@ -100,7 +105,9 @@ void merge_sort(int *array, size_t size)
  */
 void print_array(const int *array, size_t size)
 {
-	for (size_t i = 0; i < size; i++)
+	size_t i;
+
+	for (i = 0; i < size; i++)
 	{
 		if (i > 0)
 			printf(", ");
