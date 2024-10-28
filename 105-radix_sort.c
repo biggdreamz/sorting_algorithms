@@ -33,7 +33,7 @@ int get_max(int *array, size_t size)
  * specified digit (unit, tens, etc.) and prints the array
  * after each sorting step.
  */
-void counting_sort(int *array, size_t size, int exp)
+void radix_sort(int *array, size_t size);
 {
 	int *output = malloc(size * sizeof(int));
 
