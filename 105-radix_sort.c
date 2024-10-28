@@ -8,14 +8,14 @@ void counting_sort(int *array, size_t size, int exp);
 
 /**
  * radix_sort - Sorts an array of integers in ascending order using the
- *              LSD radix sort algorithm.
+ * LSD radix sort algorithm.
  * @array: Pointer to the array to sort.
  * @size: The number of elements in the array.
  *
  * Description: This function finds the maximum number in the array
- *              and sorts the array by each digit, starting from the
- *              least significant digit. The array is printed after
- *              sorting by each significant digit.
+ * and sorts the array by each digit, starting from the
+ * least significant digit. The array is printed after
+ * sorting by each significant digit.
  */
 void radix_sort(int *array, size_t size)
 {
@@ -25,7 +25,6 @@ void radix_sort(int *array, size_t size)
 	for (exp = 1; max / exp > 0; exp *= 10)
 	{
 		counting_sort(array, size, exp);
-		printf("Array after sorting by digit %d:\n", exp);
 		print_array(array, size);
 	}
 }
@@ -80,7 +79,7 @@ void counting_sort(int *array, size_t size, int exp)
 		array[i] = output[i];
 	}
 
-		free(output);
+	free(output);
 }
 
 /**
