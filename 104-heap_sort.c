@@ -3,6 +3,27 @@
 #include "sort.h"
 
 /**
+ * print_array - Prints an array of integers
+ * @array: Pointer to the array to be printed
+ * @size: Size of the array
+ *
+ * Description: This function prints each element of an integer array
+ * separated by commas.
+ */
+void print_array(const int *array, size_t size)
+{
+	size_t i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (i > 0)
+			printf(", ");
+		printf("%d", array[i]);
+	}
+	printf("\n");
+}
+
+/**
  * sift_down - Sifts down the element at index in the heap
  * @array: Pointer to the array representing the heap
  * @size: Size of the array
@@ -27,7 +48,6 @@ void sift_down(int *array, size_t size, size_t root, size_t end)
 	if (largest != root)
 	{
 		int temp = array[root];
-
 		array[root] = array[largest];
 		array[largest] = temp;
 		print_array(array, size);
@@ -45,7 +65,8 @@ void sift_down(int *array, size_t size, size_t root, size_t end)
  */
 void build_max_heap(int *array, size_t size)
 {
-	for (ssize_t i = (size / 2) - 1; i >= 0; i--)
+	ssize_t i;
+	for (i = (size / 2) - 1; i >= 0; i--)
 		sift_down(array, size, i, size - 1);
 }
 
@@ -65,10 +86,10 @@ void heap_sort(int *array, size_t size)
 
 	build_max_heap(array, size);
 
-	for (size_t end = size - 1; end > 0; end--)
+	size_t end;
+	for (end = size - 1; end > 0; end--)
 	{
 		int temp = array[0];
-
 		array[0] = array[end];
 		array[end] = temp;
 		print_array(array, size);
