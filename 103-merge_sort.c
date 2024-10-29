@@ -10,7 +10,9 @@
  */
 void print_subarray(int *array, size_t left, size_t right)
 {
-    for (size_t i = left; i <= right; i++)
+    size_t i;  // Declare here
+
+    for (i = left; i <= right; i++)
     {
         if (i > left)
             printf(", ");
