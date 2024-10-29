@@ -46,39 +46,6 @@ int get_max(int *array, size_t size)
  * @size: The size of the array.
  * @exp: The current digit's place value (1, 10, 100, etc.).
  */
-void counting_sort(int *array, size_t size, int exp)
-{
-	int *output = malloc(size * sizeof(int));
-	int count[10] = {0};
-	size_t i;
-
-	if (!output)
-		return;
-
-	/* Count occurrences of each digit in the current place value */
-	for (i = 0; i < size; i++)
-		count[(array[i] / exp) % 10]++;
-
-	/* Accumulate counts */
-	for (i = 1; i < 10; i++)
-		count[i] += count[i - 1];
-
-	/* Build the output array */
-	for (i = size - 1; (int)i >= 0; i--)
-	{
-		output[count[(array[i] / exp) % 10] - 1] = array[i];
-		count[(array[i] / exp) % 10]--;
-	}
-
-	/* Copy the sorted numbers back to the original array */
-	for (i = 0; i < size; i++)
-		array[i] = output[i];
-
-	/* Print the array after sorting by the current digit */
-	print_array(array, size);
-
-	free(output);
-}
 
 /**
  * radix_sort - Sorts an array of integers in ascending order using the Radix sort algorithm.
