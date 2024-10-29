@@ -10,7 +10,7 @@
  */
 void print_subarray(int *array, size_t left, size_t right)
 {
-    size_t i;  // Declare here
+    size_t i;  /* Declare here */
 
     for (i = left; i <= right; i++)
     {
@@ -31,7 +31,9 @@ void print_subarray(int *array, size_t left, size_t right)
  */
 void merge(int *array, int *temp, size_t left, size_t mid, size_t right)
 {
-    size_t i = left, j = mid + 1, k = left;
+    size_t i = left;   /* Index for left sub-array */
+    size_t j = mid + 1; /* Index for right sub-array */
+    size_t k = left;   /* Index for the temporary array */
 
     printf("Merging...\n[left]: ");
     print_subarray(array, left, mid);
@@ -90,10 +92,12 @@ void merge_sort_recursive(int *array, int *temp, size_t left, size_t right)
  */
 void merge_sort(int *array, size_t size)
 {
+    int *temp; /* Declare the temporary array pointer */
+    
     if (array == NULL || size < 2)
         return;
 
-    int *temp = malloc(size * sizeof(int));
+    temp = malloc(size * sizeof(int));
     if (temp == NULL)
         return;
 
