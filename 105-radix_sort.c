@@ -23,7 +23,7 @@ int get_max(int *array, size_t size)
 }
 
 /**
- * counting_sort - Performs a counting sort on an array based on a specific digit.
+ * counting_sort - Performs a counting sort on an array.
  * @array: The array to be sorted.
  * @size: The size of the array.
  * @exp: The current digit's place value (1, 10, 100, etc.).
@@ -63,7 +63,7 @@ void counting_sort(int *array, size_t size, int exp)
 }
 
 /**
- * radix_sort - Sorts an array of integers in ascending order using the Radix sort algorithm.
+ * radix_sort - Sorts an array of integers in ascending order.
  * @array: The array to be sorted.
  * @size: The size of the array.
  */
