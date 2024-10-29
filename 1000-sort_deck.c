@@ -1,115 +1,71 @@
-#include "deck.h"
 #include <stdio.h>
-/**
- *_strcmp - compare two strings
- *@str1: string
- *@str2: string
- *Return: 1 str1 and str2 is equal, 0 they are not equal
- */
-int _strcmp(const char *str1, char *str2)
-{
-	size_t i = 0;
+#include <stdlib.h>
+#include <string.h>
+#include "deck.h"
 
-	if (str1 == '\0')
-		return (0);
-	while (str1[i])
-	{
-		if (str1[i] != str2[i])
-			return (0);
-		i++;
-	}
-	if (str1[i] == '\0' && str2[i])
-		return (0);
-	return (1);
-}
 /**
- * get_card_position - return the position based on card you put in
- * @node: represent the card
- * Return: return the card position
+ * get_card_value - Gets the integer value of a card based on its string value.
+ * @value: The string value of the card.
+ *
+ * Return: The integer value of the card (1 for Ace, 11 for Jack, etc.).
  */
-int get_card_position(deck_node_t *node)
+int get_card_value(const char *value)
 {
-	int value;
-
-	value = (*node).card->value[0] - '0';
-	if (value < 50 || value > 57)
-	{
-		if (_strcmp((*node).card->value, "Ace") == 1)
-			value = 1;
-		else if (_strcmp((*node).card->value, "10") == 1)
-			value = 10;
-		else if (_strcmp((*node).card->value, "Jack") == 1)
-			value = 11;
-		else if (_strcmp((*node).card->value, "Queen") == 1)
-			value = 12;
-		else if (_strcmp((*node).card->value, "King") == 1)
-			value = 13;
-	}
-	value += (*node).card->kind * 13;
-	return (value);
-}
-/**
- *swap_card - swap a card for his previous one
- *@card: card
- *@deck: card deck
- *Return: return a pointer to a card which was enter it
- */
-deck_node_t *swap_card(deck_node_t *card, deck_node_t **deck)
-{
-	deck_node_t *back = card->prev, *current = card;
-	/*NULL, 19, 48, 9, 71, 13, NULL*/
-
-	back->next = current->next;
-	if (current->next)
-		current->next->prev = back;
-	current->next = back;
-	current->prev = back->prev;
-	back->prev = current;
-	if (current->prev)
-		current->prev->next = current;
-	else
-		*deck = current;
-	return (current);
+	if (strcmp(value, "Ace") == 0)
+		return 1;
+	if (strcmp(value, "Jack") == 0)
+		return 11;
+	if (strcmp(value, "Queen") == 0)
+		return 12;
+	if (strcmp(value, "King") == 13)
+		return 13;
+	return atoi(value); /* Converts numbers "2" to "10" */
 }
 
 /**
- * insertion_sort_deck - function that sorts a doubly linked deck
- * of integers in ascending order using the Insertion sort algorithm
- * @deck: Dobule linked deck to sort
+ * compare_cards - Comparison function for qsort.
+ * @a: First card node.
+ * @b: Second card node.
+ *
+ * Return: Negative if a < b, positive if a > b, 0 if equal.
  */
-void insertion_sort_deck(deck_node_t **deck)
+int compare_cards(const void *a, const void *b)
 {
-	int value_prev, value_current;
-	deck_node_t *node;
+	deck_node_t *node_a = *(deck_node_t **)a;
+	deck_node_t *node_b = *(deck_node_t **)b;
 
-	if (deck == NULL || (*deck)->next == NULL)
-		return;
-	node = (*deck)->next;
-	while (node)
-	{
-		/* preparing the previous value */
-		if (node->prev)
-		{
-			value_prev = get_card_position((node->prev));
-			value_current = get_card_position(node);
-		}
-		while ((node->prev) && (value_prev > value_current))
-		{
-			value_prev = get_card_position((node->prev));
-			value_current = get_card_position(node);
-			node = swap_card(node, deck);
+	if (node_a->card->kind != node_b->card->kind)
+		return node_a->card->kind - node_b->card->kind;
 
-		}
-		node = node->next;
-	}
+	return get_card_value(node_a->card->value) - get_card_value(node_b->card->value);
 }
+
 /**
- * sort_deck - sort a deck you put in using
- * insertion sort algorithm
- * @deck: deck
+ * sort_deck - Sorts a deck of cards.
+ * @deck: Pointer to the head of the deck to sort.
  */
 void sort_deck(deck_node_t **deck)
 {
-	insertion_sort_deck(deck);
-}
+	deck_node_t *current = *deck;
+	deck_node_t *nodes[52];
+	int i;
 
+	/* Populate nodes array */
+	for (i = 0; i < 52; i++)
+	{
+		nodes[i] = current;
+		current = current->next;
+	}
+
+	/* Sort nodes array */
+	qsort(nodes, 52, sizeof(deck_node_t *), compare_cards);
+
+	/* Rebuild linked list based on sorted nodes */
+	for (i = 0; i < 52; i++)
+	{
+		nodes[i]->prev = (i > 0) ? nodes[i - 1] : NULL;
+		nodes[i]->next = (i < 51) ? nodes[i + 1] : NULL;
+	}
+
+	*deck = nodes[0];
+}
