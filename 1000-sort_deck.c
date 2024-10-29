@@ -12,14 +12,14 @@
 int get_card_value(const char *value)
 {
 	if (strcmp(value, "Ace") == 0)
-		return 1;
+		return (1);
 	if (strcmp(value, "Jack") == 0)
-		return 11;
+		return (11);
 	if (strcmp(value, "Queen") == 0)
-		return 12;
-	if (strcmp(value, "King") == 13)
-		return 13;
-	return atoi(value); /* Converts numbers "2" to "10" */
+		return (12);
+	if (strcmp(value, "King") == 0)
+		return (13);
+	return (atoi(value)); /* Converts numbers "2" to "10" */
 }
 
 /**
@@ -35,9 +35,10 @@ int compare_cards(const void *a, const void *b)
 	deck_node_t *node_b = *(deck_node_t **)b;
 
 	if (node_a->card->kind != node_b->card->kind)
-		return node_a->card->kind - node_b->card->kind;
+		return (node_a->card->kind - node_b->card->kind);
 
-	return get_card_value(node_a->card->value) - get_card_value(node_b->card->value);
+	return (get_card_value(node_a->card->value) -
+			get_card_value(node_b->card->value));
 }
 
 /**
