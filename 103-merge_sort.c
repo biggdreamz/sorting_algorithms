@@ -68,7 +68,7 @@ void merge_sort_recursive(int *array, int *temp, size_t left, size_t right)
 void merge_sort(int *array, size_t size)
 {
 	int *temp;
-	
+
 	if (array == NULL || size < 2)
 		return;
 
